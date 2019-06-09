@@ -29,6 +29,10 @@ public class InfoCommand extends AbstractSubCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!sender.hasPermission("iwarp.command.info")) {
+			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
+			return true;
+		}
 		if (args.length < 2) {
 			sender.sendMessage(usage);
 			return true;

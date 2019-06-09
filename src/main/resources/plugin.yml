@@ -15,6 +15,24 @@ permissions:
   iwarp.command:
     description: Gives access to the main command
     default: true
-  iwarp.use:
-    description: Allow creating and moving warps
+  iwarp.command.create:
+    description: Allow creating warps
+    default: true
+  iwarp.command.renew:
+    description: Allow renewing warps
+    default: true
+  iwarp.command.move:
+    description: Allow creating warps
+    default: true
+  iwarp.command.rename:
+    description: Allow renaming warps
+    default: true
+  iwarp.command.transfer:
+    description: Allow transferring warps
+    default: true
+  iwarp.command.list:
+    description: Allow seeing the list of warps warps
+    default: true
+  iwarp.command.info:
+    description: Allow seeing warp info (owner and expiry time)
     default: true

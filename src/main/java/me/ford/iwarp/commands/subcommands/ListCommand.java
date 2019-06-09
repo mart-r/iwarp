@@ -23,6 +23,10 @@ public class ListCommand extends AbstractSubCommand {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!sender.hasPermission("iwarp.command.list")) {
+			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
+			return true;
+		}
 		Player target = null;
 		if (args.length == 1 && sender instanceof Player) {
 			target = (Player) sender;

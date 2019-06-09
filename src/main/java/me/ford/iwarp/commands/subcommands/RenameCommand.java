@@ -34,6 +34,10 @@ public class RenameCommand extends AbstractSubCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!sender.hasPermission("iwarp.command.rename")) {
+			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
+			return true;
+		}
 		if (args.length < 3) {
 			sender.sendMessage(usage);
 			return true;

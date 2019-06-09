@@ -27,16 +27,16 @@ public class CreateCommand extends AbstractSubCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!sender.hasPermission("iwarp.command.create")) {
+			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
+			return true;
+		}
 		if (args.length < 3) {
 			sender.sendMessage(usage);
 			return true;
 		}
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(IW.getSettings().getSenderMustBePlayerMessage());
-			return true;
-		}
-		if (!sender.hasPermission("iwarp.use")) {
-			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
 			return true;
 		}
 		Player player = (Player) sender;

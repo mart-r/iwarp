@@ -34,12 +34,12 @@ public class MoveCommand extends AbstractSubCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (args.length < 2) {
-			sender.sendMessage(usage);
+		if (!sender.hasPermission("iwarp.command.move")) {
+			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
 			return true;
 		}
-		if (!sender.hasPermission("iwarp.use")) {
-			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
+		if (args.length < 2) {
+			sender.sendMessage(usage);
 			return true;
 		}
 		if (!(sender instanceof Player)) {
