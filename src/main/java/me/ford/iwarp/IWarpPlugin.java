@@ -13,7 +13,10 @@ public class IWarpPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		saveDefaultConfig();
+		getConfig().options().copyDefaults(true);
 		settings = new Settings(this);
+		saveConfig();
 		try {
 			warpHandler = new WarpHandler(this);
 		} catch (ClassNotFoundException e) {
@@ -28,17 +31,9 @@ public class IWarpPlugin extends JavaPlugin {
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
-		getConfig().options().copyDefaults(true);
-		saveConfig();
+		
+		// commands
 		getCommand("iwarp").setExecutor(new CommandIWarp(this));
-		// DEBUG
-		getLogger().info("COSTS");
-		getLogger().info("create:" + settings.getCreateCost());
-		getLogger().info("move:" + settings.getMoveCost());
-		getLogger().info("rename:" + settings.getRenameCost());
-		getLogger().info("renew:" + settings.getRenewCost());
-		getLogger().info("transfer:" + settings.getTransferCost());
-		// DEBUG
 	}
 	
     private boolean setupEconomy() {
