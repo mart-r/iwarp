@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.ford</groupId>
+  <artifactId>iwarp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>iWarp</name>
+  <description>User specific and timed warps tied in with Essentials.</description>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+    </repository>	
+    <repository>
+      <id>ess-repo</id>
+      <url>https://ci.ender.zone/plugin/repository/everything/</url>
+    </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+	</repository>
+  </repositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>craftbukkit</artifactId>
+      <version>1.13.2-R0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>net.ess3</groupId>
+      <artifactId>EssentialsX</artifactId>
+      <version>2.16.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.MilkBowl</groupId>
+      <artifactId>VaultAPI</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+  	<finalName>iWarp</finalName>
+  	<sourceDirectory>src/main/java</sourceDirectory>
+  	<resources>
+  	  <resource>
+  	    <filtering>true</filtering>
+  	    <directory>src/main/resources/</directory>
+  	    <includes>
+  	      <include>plugin.yml</include>
+  	      <include>config.yml</include>
+  	    </includes>
+  	  </resource>
+  	</resources>
+  </build>
+</project>
