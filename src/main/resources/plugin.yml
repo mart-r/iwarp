@@ -2,6 +2,7 @@ name: ${project.name}
 version: ${project.version}
 author: Ford
 main: ${project.groupId}.${project.artifactId}.IWarpPlugin
+api-version: 1.13
 depends: [Essentials, Vault]
 
 commands:
