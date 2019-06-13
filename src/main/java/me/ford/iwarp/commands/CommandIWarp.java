@@ -18,6 +18,7 @@ import me.ford.iwarp.commands.subcommands.CreateCommand;
 import me.ford.iwarp.commands.subcommands.InfoCommand;
 import me.ford.iwarp.commands.subcommands.ListCommand;
 import me.ford.iwarp.commands.subcommands.MoveCommand;
+import me.ford.iwarp.commands.subcommands.ReloadCommand;
 import me.ford.iwarp.commands.subcommands.RenameCommand;
 import me.ford.iwarp.commands.subcommands.RenewCommand;
 import me.ford.iwarp.commands.subcommands.TransferCommand;
@@ -36,7 +37,9 @@ public class CommandIWarp implements TabExecutor {
 		subCommands.put("transfer", new TransferCommand(IW));
 		subCommands.put("list", new ListCommand(IW));
 		subCommands.put("info", new InfoCommand(IW));
+		subCommands.put("reload", new ReloadCommand(IW));
 		subCommandNames.addAll(subCommands.keySet());
+		subCommandNames.remove("reload"); // most people can't reload
 		subCommandNames.add("help"); // I can tabcomplete, but it just returns false and displays usage
 	}
 

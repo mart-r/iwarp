@@ -47,6 +47,11 @@ public class IWarpPlugin extends JavaPlugin {
         econ = rsp.getProvider();
         return econ != null;
     }
+    
+    public void reload() {
+    	reloadConfig();
+    	warpHandler.reload();
+    }
 	
 	public Settings getSettings() {
 		return settings;

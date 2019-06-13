@@ -36,3 +36,6 @@ permissions:
   iwarp.command.info:
     description: Allow seeing warp info (owner and expiry time)
     default: true
+  iwarp.command.reload:
+    description: Allow seeing reloading the plugin configs
+    default: op

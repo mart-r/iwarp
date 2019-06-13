@@ -13,6 +13,14 @@ public class Settings {
 	public Settings(IWarpPlugin plugin) {
 		IW = plugin;
 	}
+	
+	public boolean getConfirmCreate() {
+		return IW.getConfig().getBoolean("confirm.create", false);
+	}
+	
+	public boolean getConfirmMove() {
+		return IW.getConfig().getBoolean("confirm.move", false);
+	}
 
 	public double getCreateCost() {
 		return IW.getConfig().getDouble("createcost", 0);
@@ -57,6 +65,11 @@ public class Settings {
 		return msg.replace("{name}", warpName).replace("{days}", String.valueOf(days)).replace("{amount}", Utils.doubleFormat(price));
 	}
 	
+	public String getCreateWarpConfirmMessage(String name, double price) {
+		String msg = getMessage("confirm-create", "&7Type 'confirm' to confirm the location for warp &7{name}&7. The cost is &8{amount}&7.").replace("{name}", name);
+		return msg.replace("{name}", name).replace("{amount}", Utils.doubleFormat(price));
+	}
+	
 	public String getNotYourWarpMessage(String name) {
 		return getMessage("not-your-warp", "&cThis warp does not belong to you: &7{name}").replace("{name}", name);
 	}
@@ -81,6 +94,11 @@ public class Settings {
 	
 	public String getMovedWarpMessage(String warpName, double price) {
 		String msg = getMessage("moved-warp", "&7You've successfully moved the warp &6{name}&7 to your current location for &8{amount}");
+		return msg.replace("{name}", warpName).replace("{amount}", Utils.doubleFormat(price));
+	}
+	
+	public String getMoveWarpConfirmMessage(String warpName, double price) {
+		String msg = getMessage("confirm-move", "&7Type 'confirm' to confirm the new location for warp &6{name}&7. The cost is &8{amount}&7.");
 		return msg.replace("{name}", warpName).replace("{amount}", Utils.doubleFormat(price));
 	}
 	
@@ -127,6 +145,10 @@ public class Settings {
 	public String getWarpInfoMessage(String name, OfflinePlayer owner, long timeLeft) {
 		String msg = getMessage("warp-info", "&7The warp &6{name}&7 is owned by &8{player}&7 and will expire in &6{time}");
 		return msg.replace("{name}", name).replace("{player}", owner.getName()).replace("{time}", DateUtil.formatDateDiff(timeLeft));
+	}
+	
+	public String getReloadedMessage() {
+		return getMessage("reloaded", "&cSuccessfully loaded config and iwarps!");
 	}
 	
 	private String getMessage(String path, String def) {

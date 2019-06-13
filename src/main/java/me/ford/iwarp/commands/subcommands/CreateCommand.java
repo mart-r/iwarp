@@ -8,8 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.ford.iwarp.IWarpPlugin;
+import me.ford.iwarp.ReactionRunnable;
 import me.ford.iwarp.Settings;
 import me.ford.iwarp.WarpHandler;
+import me.ford.iwarp.listeners.ChatListener;
 
 public class CreateCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp create <warpname> <days>";
@@ -39,11 +41,11 @@ public class CreateCommand extends AbstractSubCommand {
 			sender.sendMessage(IW.getSettings().getSenderMustBePlayerMessage());
 			return true;
 		}
-		Player player = (Player) sender;
+		final Player player = (Player) sender;
 		
-		String warpName = args[1];
+		final String warpName = args[1];
 		
-		int days; // parse number of days
+		final int days; // parse number of days
 		try {
 			days = Integer.parseInt(args[2]);
 		} catch (NumberFormatException e) {
@@ -56,8 +58,8 @@ public class CreateCommand extends AbstractSubCommand {
 		}
 		
 		// helpers
-		WarpHandler wh = IW.getWarpHandler();
-		Settings settings = IW.getSettings();
+		final WarpHandler wh = IW.getWarpHandler();
+		final Settings settings = IW.getSettings();
 		
 		// handle warp existance
 		if (wh.isWarp(warpName)) {
@@ -73,13 +75,30 @@ public class CreateCommand extends AbstractSubCommand {
 		} catch (NumberFormatException e) {	/* continue */ }
 		
 		// handle price
-		double price = settings.getCreateCost() + settings.getRenewCost() * days;
+		final double price = settings.getCreateCost() + settings.getRenewCost() * days;
 		if (!IW.getEcon().has(player, price)) {
 			player.sendMessage(settings.getNotEnoughMoneyMessage(price));
 			return true;
 		}
 		
 		// create warp
+		if (!IW.getSettings().getConfirmCreate()) {
+			create(player, wh, warpName, settings, days, price);
+		} else {
+			ReactionRunnable run = new ReactionRunnable() {
+				@Override
+				public void run() {
+					create(player, wh, warpName, settings, days, price);
+				}
+			};
+			player.sendMessage(settings.getCreateWarpConfirmMessage(warpName, price));
+			IW.getServer().getPluginManager().registerEvents(new ChatListener(IW, player.getUniqueId(), run), IW);
+			return true;
+		}
+		return true;
+	}
+	
+	private void create(Player player, WarpHandler wh, String warpName, Settings settings, int days, double price) {
 		if (wh.createWarp(warpName, player, days)) {
 			IW.getEcon().withdrawPlayer(player, price);
 			player.sendMessage(settings.getCreatedWarpMessage(warpName, days, price));
@@ -88,7 +107,6 @@ public class CreateCommand extends AbstractSubCommand {
 			player.sendMessage(msg);
 			IW.getLogger().warning(msg);
 		}
-		return true;
 	}
 
 }

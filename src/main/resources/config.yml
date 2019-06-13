@@ -5,6 +5,10 @@ renamecost: 20
 transfercost: 20
 check-delay-ticks: 200
 
+confirm:
+  create: false
+  move: false
+
 messages:
   warp-already-exists: "&cWarp already exists: &6{name}"
   sender-must-be-player: "&cSender must be a player!"
@@ -25,3 +29,6 @@ messages:
   list-warps: "&6{player}&7 has the following warps: &8{warps}"
   warp-not-found: "&cWarp not found: &c{name}"
   warp-info: "&7The warp &6{name}&7 is owned by &8{player}&7 and will expire in &6{time}"
+  confirm-create: "&7Type 'confirm' to confirm the location for warp &7{name}&7. The cost is &8{amount}&7."
+  confirm-move: "&7Type 'confirm' to confirm the new location for warp &6{name}&7. The cost is &8{amount}&7."
+  reloaded: "&cSuccessfully loaded config and iwarps!"

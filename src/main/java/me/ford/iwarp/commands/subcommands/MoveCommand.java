@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import me.ford.iwarp.IWarpPlugin;
+import me.ford.iwarp.ReactionRunnable;
 import me.ford.iwarp.Settings;
 import me.ford.iwarp.WarpHandler;
+import me.ford.iwarp.listeners.ChatListener;
 
 public class MoveCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp move <warpname>";
@@ -46,11 +48,11 @@ public class MoveCommand extends AbstractSubCommand {
 			sender.sendMessage(IW.getSettings().getSenderMustBePlayerMessage());
 			return true;
 		}
-		Player owner = (Player) sender;
-		String warpName = args[1].toLowerCase();
+		final Player owner = (Player) sender;
+		final String warpName = args[1].toLowerCase();
 		
-		WarpHandler wh = IW.getWarpHandler();
-		Settings settings = IW.getSettings();
+		final WarpHandler wh = IW.getWarpHandler();
+		final Settings settings = IW.getSettings();
 		// check ownership
 		if (!wh.getWarpsOf(owner).contains(warpName)) {
 			owner.sendMessage(settings.getNotYourWarpMessage(warpName));
@@ -58,14 +60,30 @@ public class MoveCommand extends AbstractSubCommand {
 		}
 		
 		// check money
-		double price = settings.getMoveCost();
+		final double price = settings.getMoveCost();
 		if (!IW.getEcon().has(owner, price)) {
 			owner.sendMessage(settings.getNotEnoughMoneyMessage(price));
 			return true;
 		}
 		
 		// move
-		if (wh.moveWarp(warpName, owner)) {
+		if (!settings.getConfirmMove()) {
+			move(owner, wh, warpName, settings, price);
+		} else {
+			ReactionRunnable run = new ReactionRunnable() {
+				@Override
+				public void run() {
+					move(owner, wh, warpName, settings, price);
+				}
+			};
+			owner.sendMessage(settings.getMoveWarpConfirmMessage(warpName, price));
+			IW.getServer().getPluginManager().registerEvents(new ChatListener(IW, owner.getUniqueId(), run), IW);
+		}
+		return true;
+	}
+	
+	private void move(Player owner, WarpHandler wh, String warpName, Settings settings, double price) {
+		if (wh.moveWarp(warpName, owner) || settings.getConfirmCreate()) {
 			IW.getEcon().withdrawPlayer(owner, price);
 			owner.sendMessage(settings.getMovedWarpMessage(warpName, price));
 		} else {
@@ -73,7 +91,6 @@ public class MoveCommand extends AbstractSubCommand {
 			owner.sendMessage(msg);
 			IW.getLogger().warning(msg);
 		}
-		return true;
 	}
 
 }

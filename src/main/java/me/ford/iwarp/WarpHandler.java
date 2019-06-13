@@ -17,7 +17,7 @@ public class WarpHandler {
 	private static final long DAY_TIME = 24 * 60 * 60 * 1000; // in ms 
 	private final IWarpPlugin IW;
 	private final File file;
-	private final FileConfiguration config; // maps warp name to deletion time
+	private FileConfiguration config; // maps warp name to deletion time
 	private final EssentialsHook essHook;
 	
 	public WarpHandler(IWarpPlugin plugin) throws ClassNotFoundException {
@@ -29,20 +29,25 @@ public class WarpHandler {
 
 			@Override
 			public void run() {
-				if (checkAndTerminate()) {
-					IW.getLogger().info("Some iwarps expired");
+				List<String> deleted = checkAndTerminate();
+				if (!deleted.isEmpty()) {
+					IW.getLogger().info("Some iwarps expired: " + String.join(", ", deleted));
 				}
 			}
 			
 		}.runTaskTimer(IW, 5L, IW.getSettings().getCheckTicks()); // first check is relativel quickly in case we had downtime
 	}
 	
-	private boolean checkAndTerminate() {
+	public void reload() {
+		config = YamlConfiguration.loadConfiguration(file);
+	}
+	
+	private List<String> checkAndTerminate() {
 		List<String> toDelete = new ArrayList<>();
 		long ctime = System.currentTimeMillis();
 		for (String name : config.getKeys(false)) {
 			long time = config.getLong(name);
-			if (time < ctime) {
+			if (time < ctime || !isWarp(name)) {
 				toDelete.add(name);
 			}
 		}
@@ -51,9 +56,8 @@ public class WarpHandler {
 				deleteWarp(name, false);
 			}
 			save(); // save once
-			return true;
 		}
-		return false;
+		return toDelete;
 	}
 	
 	private void save() {
@@ -124,12 +128,13 @@ public class WarpHandler {
 	
 	public void deleteWarp(String name, boolean save) {
 		name = name.toLowerCase();
-		if (!isWarp(name)) {
-			return;
+		if (isWarp(name)) {
+			essHook.deleteWarp(name);
 		}
-		essHook.deleteWarp(name);
-		config.set(name,  null);
-		if (save) save();
+		if (config.contains(name)) {
+			config.set(name,  null);
+			if (save) save(); // only if necessary
+		}
 	}
 	
 	public List<String> getWarpsOf(Player owner) {
