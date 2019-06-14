@@ -1,11 +1,16 @@
 package me.ford.iwarp;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 
 import com.earth2me.essentials.utils.DateUtil;
+
+import me.ford.iwarp.addons.IWarpAddOnType;
 
 public class Settings {
 	private final IWarpPlugin IW;
@@ -13,6 +18,8 @@ public class Settings {
 	public Settings(IWarpPlugin plugin) {
 		IW = plugin;
 	}
+	
+	// config entries
 	
 	public boolean getConfirmCreate() {
 		return IW.getConfig().getBoolean("confirm.create", false);
@@ -45,6 +52,19 @@ public class Settings {
 	public int getCheckTicks() {
 		return IW.getConfig().getInt("check-delay-ticks", 200);
 	}
+	
+	// addons
+	
+	public boolean isAddOnEnabled(IWarpAddOnType type) {
+		switch (type) {
+		case OLDWARPLOCATIONLOGGER:
+			return IW.getConfig().getBoolean("addons.save-expired-warp-locations", false);
+		default:
+			return false;	
+		}
+	}
+	
+	// messages
 	
 	public String getWarpExistsMessage(String warpName) {
 		String msg = getMessage("warp-already-exists", "&cWarp already exists: &6{name}");
@@ -149,6 +169,24 @@ public class Settings {
 	
 	public String getReloadedMessage() {
 		return getMessage("reloaded", "&cSuccessfully loaded config and iwarps!");
+	}
+	
+	public String getNoPreviousLocationsMessage(String name) {
+		return getMessage("no-previous-locations", "&7No previous locations for warp &6{name}").replace("{name}", name);
+	}
+	
+	public String getPreviousLocationsMessage(String name, Map<Long, Location> locs) {
+		String msg = getMessage("previous-locations", "&7Previous locations for warp &6{name}&7: &8{locs}");
+		String res = "";
+		for (Entry<Long, Location> entry : locs.entrySet()) {
+			Location loc = entry.getValue();
+			if (res.length() > 0) {
+				res += ", ";
+			}
+			res += DateUtil.formatDateDiff(entry.getKey()) + ": " + String.format("(%s)%s,%s,%s", 
+					loc.getWorld().getName(), Utils.doubleFormat(loc.getX()), Utils.doubleFormat(loc.getY()), Utils.doubleFormat(loc.getZ()));
+		}
+		return msg.replace("{name}", name).replace("{locs}", res);
 	}
 	
 	private String getMessage(String path, String def) {

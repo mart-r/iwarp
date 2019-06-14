@@ -109,6 +109,14 @@ public class EssentialsHook {
 		return ess.getWarps().getList();
 	}
 	
+	public Location getWarpLocation(String name) {
+		try {
+			return ess.getWarps().getWarp(name);
+		} catch (WarpNotFoundException | InvalidWorldException e) {
+			return null;
+		}
+	}
+	
 	private IUser wrap(UUID id) {
 		return ess.getUser(id);
 	}

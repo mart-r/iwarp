@@ -7,11 +7,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.ford.iwarp.addons.IWarpAddOnType;
 
 public class WarpHandler {
 	private static final long DAY_TIME = 24 * 60 * 60 * 1000; // in ms 
@@ -129,6 +132,10 @@ public class WarpHandler {
 	public void deleteWarp(String name, boolean save) {
 		name = name.toLowerCase();
 		if (isWarp(name)) {
+			if (IW.getSettings().isAddOnEnabled(IWarpAddOnType.OLDWARPLOCATIONLOGGER)) {
+				Location loc = essHook.getWarpLocation(name);
+				IW.getOldLocationLogger().onWarpDeletion(name, loc);
+			}
 			essHook.deleteWarp(name);
 		}
 		if (config.contains(name)) {

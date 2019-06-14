@@ -10,6 +10,11 @@ commands:
     description: The iwarp command
     usage: "/<command> create <warpname> <days>\n/<command> renew <warpname> <days>\n/<command> move <warpname>\n/<command> rename <oldname> <newname>\n/<command> transfer <warpname> <newowner>\n/<command> list <playername>\n/<command> info <warpname\n/<command> help"
     permission: iwarp.command
+  iwarpaddons:
+    description: Addon commands
+    usage: "/<command> [tab]"
+    permission: iwarp.addons
+    aliases: [iwa, iwarpa]
     
 permissions:
   iwarp.command:
@@ -38,4 +43,7 @@ permissions:
     default: true
   iwarp.command.reload:
     description: Allow seeing reloading the plugin configs
+    default: op
+  iwarp.addons:
+    description: Allow using the addons command
     default: op

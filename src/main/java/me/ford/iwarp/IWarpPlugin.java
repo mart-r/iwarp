@@ -1,15 +1,23 @@
 package me.ford.iwarp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.ford.iwarp.addons.IWarpAddOnType;
+import me.ford.iwarp.addons.OldWarpLocationLogger;
+import me.ford.iwarp.addons.IWarpAddOn;
 import me.ford.iwarp.commands.CommandIWarp;
+import me.ford.iwarp.commands.CommandIWarpAddOns;
 import net.milkbowl.vault.economy.Economy;
 
 public class IWarpPlugin extends JavaPlugin {
 	private Settings settings;
 	private WarpHandler warpHandler;
 	private Economy econ;
+	private Map<IWarpAddOnType, IWarpAddOn> addOns = new HashMap<>();
 	
 	@Override
 	public void onEnable() {
@@ -32,8 +40,14 @@ public class IWarpPlugin extends JavaPlugin {
 			return;
 		}
 		
+		// addons
+		if (settings.isAddOnEnabled(IWarpAddOnType.OLDWARPLOCATIONLOGGER)) {
+			addOns.put(IWarpAddOnType.OLDWARPLOCATIONLOGGER, new OldWarpLocationLogger(this));
+		}
+		
 		// commands
 		getCommand("iwarp").setExecutor(new CommandIWarp(this));
+		getCommand("iwarpaddons").setExecutor(new CommandIWarpAddOns(this));
 	}
 	
     private boolean setupEconomy() {
@@ -63,6 +77,14 @@ public class IWarpPlugin extends JavaPlugin {
 	
 	public Economy getEcon() {
 		return econ;
+	}
+	
+	public IWarpAddOn getAddOn(IWarpAddOnType type) {
+		return addOns.get(type);
+	}
+	
+	public OldWarpLocationLogger getOldLocationLogger() {
+		return (OldWarpLocationLogger) getAddOn(IWarpAddOnType.OLDWARPLOCATIONLOGGER);
 	}
 
 }
