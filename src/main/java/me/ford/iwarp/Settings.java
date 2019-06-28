@@ -53,6 +53,10 @@ public class Settings {
 		return IW.getConfig().getInt("check-delay-ticks", 200);
 	}
 	
+	public boolean doOfflinePlayerLookup() {
+		return IW.getConfig().getBoolean("lookup-offline-players", true);
+	}
+	
 	// addons
 	
 	public boolean isAddOnEnabled(IWarpAddOnType type) {
@@ -152,7 +156,7 @@ public class Settings {
 		return msg.replace("{name}", name).replace("{player}", to.getName());
 	}
 	
-	public String getListWarpsMessage(Player owner, List<String> warps) {
+	public String getListWarpsMessage(OfflinePlayer owner, List<String> warps) {
 		String msg = getMessage("list-warps", "&6{player}&7 has the following warps: &8{warps}");
 		return msg.replace("{player}", owner.getName()).replace("{warps}", String.join(", ", warps));
 	}

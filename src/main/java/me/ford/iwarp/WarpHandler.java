@@ -144,7 +144,7 @@ public class WarpHandler {
 		}
 	}
 	
-	public List<String> getWarpsOf(Player owner) {
+	public List<String> getWarpsOf(OfflinePlayer owner) {
 		return essHook.getWarpsOf(owner);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -59,7 +60,7 @@ public class EssentialsHook {
 		}
 	}
 	
-	public List<String> getWarpsOf(Player owner) {
+	public List<String> getWarpsOf(OfflinePlayer owner) {
 		List<String> mywarps = new ArrayList<>();
 		if (owner == null) {
 			return mywarps;

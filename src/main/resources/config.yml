@@ -4,6 +4,7 @@ movecost: 20
 renamecost: 20
 transfercost: 20
 check-delay-ticks: 200
+lookup-offline-players: true
 
 confirm:
   create: false
