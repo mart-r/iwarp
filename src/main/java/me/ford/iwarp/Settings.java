@@ -57,6 +57,10 @@ public class Settings {
 		return IW.getConfig().getBoolean("lookup-offline-players", true);
 	}
 	
+	public boolean listEssentialsWarps() {
+		return IW.getConfig().getBoolean("include-essentials-warps-in-list", false);
+	}
+	
 	// addons
 	
 	public boolean isAddOnEnabled(IWarpAddOnType type) {

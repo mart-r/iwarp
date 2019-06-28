@@ -57,7 +57,7 @@ public class ListCommand extends AbstractSubCommand {
 			return;
 		}
 		
-		List<String> warps = IW.getWarpHandler().getWarpsOf(target);
+		List<String> warps = IW.getWarpHandler().getWarpsOf(target, IW.getSettings().listEssentialsWarps());
 		sender.sendMessage(IW.getSettings().getListWarpsMessage(target, warps));
 	}
 

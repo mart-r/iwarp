@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -145,7 +146,15 @@ public class WarpHandler {
 	}
 	
 	public List<String> getWarpsOf(OfflinePlayer owner) {
-		return essHook.getWarpsOf(owner);
+		return getWarpsOf(owner, true);
+	}
+	
+	public List<String> getWarpsOf(OfflinePlayer owner, boolean all) {
+		List<String> warps = essHook.getWarpsOf(owner);
+		if (all) {
+			return warps;
+		}
+		return warps.stream().filter((warp) -> isWarp(warp)).collect(Collectors.toList());
 	}
 	
 	public Collection<String> getAllWarps() {
