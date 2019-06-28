@@ -63,9 +63,19 @@ public class Settings {
 		switch (type) {
 		case OLDWARPLOCATIONLOGGER:
 			return IW.getConfig().getBoolean("addons.save-expired-warp-locations", false);
+		case WARPEXPIRYNOTIFIER:
+			return IW.getConfig().getBoolean("addons.warp-expiry-notifier.enabled", false);
 		default:
 			return false;	
 		}
+	}
+	
+	public int daysForExpiryNotification() {
+		return IW.getConfig().getInt("addons.warp-expiry-notifier.days-for-notification", 1);
+	}
+	
+	public boolean notifyOnlyOwner() {
+		return IW.getConfig().getBoolean("addons.warp-expiry-notifier.only-owner", false);
 	}
 	
 	// messages
@@ -191,6 +201,11 @@ public class Settings {
 					loc.getWorld().getName(), Utils.doubleFormat(loc.getX()), Utils.doubleFormat(loc.getY()), Utils.doubleFormat(loc.getZ()));
 		}
 		return msg.replace("{name}", name).replace("{locs}", res);
+	}
+	
+	public String getWarpExpiringMessage(String name, long timeLeft) {
+		String msg = getMessage("warp-expiring", "&7The warp &7{warp}&7 will expire in &8{time}&7!");
+		return msg.replace("{warp}", name).replace("{time}", DateUtil.formatDateDiff(timeLeft));
 	}
 	
 	private String getMessage(String path, String def) {

@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.ford.iwarp.addons.IWarpAddOnType;
 import me.ford.iwarp.addons.OldWarpLocationLogger;
+import me.ford.iwarp.addons.WarpExpiryNotifier;
 import me.ford.iwarp.addons.IWarpAddOn;
 import me.ford.iwarp.commands.CommandIWarp;
 import me.ford.iwarp.commands.CommandIWarpAddOns;
@@ -43,6 +44,9 @@ public class IWarpPlugin extends JavaPlugin {
 		// addons
 		if (settings.isAddOnEnabled(IWarpAddOnType.OLDWARPLOCATIONLOGGER)) {
 			addOns.put(IWarpAddOnType.OLDWARPLOCATIONLOGGER, new OldWarpLocationLogger(this));
+		}
+		if (settings.isAddOnEnabled(IWarpAddOnType.WARPEXPIRYNOTIFIER)) {
+			addOns.put(IWarpAddOnType.WARPEXPIRYNOTIFIER, new WarpExpiryNotifier(this));
 		}
 		
 		// commands

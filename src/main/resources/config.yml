@@ -12,7 +12,11 @@ confirm:
 
 addons:
   save-expired-warp-locations: false
-
+  warp-expiry-notifier:
+    enabled: true
+    only-owner: false
+    days-for-notification: 1
+    
 messages:
   warp-already-exists: "&cWarp already exists: &6{name}"
   sender-must-be-player: "&cSender must be a player!"
@@ -38,3 +42,4 @@ messages:
   reloaded: "&cSuccessfully loaded config and iwarps!"
   no-previous-locations: "&7No previous locations for warp &6{name}"
   previous-locations: "&7Previous locations for warp &6{name}&7: &8{locs}"
+  warp-expiring: "&7The warp &7{warp}&7 will expire in &8{time}&7!"
