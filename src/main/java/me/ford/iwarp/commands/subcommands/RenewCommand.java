@@ -71,6 +71,12 @@ public class RenewCommand extends AbstractSubCommand {
 			return true;
 		}
 		
+		// warp existance
+		if (!wh.isWarp(warpName)) {
+			target.sendMessage(settings.getWarpNotFoundMessage(warpName));
+			return true;
+		}
+		
 		// renew warp
 		wh.addTimeToWarp(warpName, days);
 		IW.getEcon().withdrawPlayer(target, price);
