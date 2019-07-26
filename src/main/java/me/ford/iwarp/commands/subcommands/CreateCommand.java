@@ -62,7 +62,7 @@ public class CreateCommand extends AbstractSubCommand {
 		final Settings settings = IW.getSettings();
 		
 		// handle warp existance
-		if (wh.isWarp(warpName)) {
+		if (wh.warpExists(warpName)) {
 			sender.sendMessage(settings.getWarpExistsMessage(warpName));
 			return true;
 		}

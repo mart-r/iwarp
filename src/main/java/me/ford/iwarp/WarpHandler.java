@@ -77,6 +77,11 @@ public class WarpHandler {
 		return config.contains(name) && essHook.findWarp(name) != null;
 	}
 	
+	public boolean warpExists(String name) {
+		name = name.toLowerCase();
+		return essHook.findWarp(name) != null;
+	}
+	
 	public boolean createWarp(String name, Player owner, int days) {
 		name = name.toLowerCase();
 		if (!setWarp(name, owner)) {
