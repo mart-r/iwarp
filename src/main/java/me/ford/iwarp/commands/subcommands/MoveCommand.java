@@ -5,14 +5,17 @@ import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.conversations.ConversationContext;
+import org.bukkit.conversations.ConversationFactory;
+import org.bukkit.conversations.MessagePrompt;
+import org.bukkit.conversations.Prompt;
+import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import me.ford.iwarp.IWarpPlugin;
-import me.ford.iwarp.ReactionRunnable;
 import me.ford.iwarp.Settings;
 import me.ford.iwarp.WarpHandler;
-import me.ford.iwarp.listeners.ChatListener;
 
 public class MoveCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp move <warpname>";
@@ -70,27 +73,77 @@ public class MoveCommand extends AbstractSubCommand {
 		if (!settings.getConfirmMove()) {
 			move(owner, wh, warpName, settings, price);
 		} else {
-			ReactionRunnable run = new ReactionRunnable() {
-				@Override
-				public void run() {
-					move(owner, wh, warpName, settings, price);
-				}
-			};
-			owner.sendMessage(settings.getMoveWarpConfirmMessage(warpName, price));
-			IW.getServer().getPluginManager().registerEvents(new ChatListener(IW, owner.getUniqueId(), run), IW);
+			ConversationFactory factory = new ConversationFactory(IW);
+			factory.withFirstPrompt(new MovePrompt(owner, wh, warpName, settings, price))
+				   .withTimeout(30).buildConversation(owner).begin();
 		}
 		return true;
 	}
 	
-	private void move(Player owner, WarpHandler wh, String warpName, Settings settings, double price) {
+	private boolean move(Player owner, WarpHandler wh, String warpName, Settings settings, double price) {
 		if (wh.moveWarp(warpName, owner) || settings.getConfirmCreate()) {
 			IW.getEcon().withdrawPlayer(owner, price);
 			owner.sendMessage(settings.getMovedWarpMessage(warpName, price));
+			return true;
 		} else {
 			String msg = settings.getIssueWhileMovingWarpMessage(warpName);
 			owner.sendMessage(msg);
 			IW.getLogger().warning(msg);
+			return false;
 		}
+	}
+
+	private class MovePrompt extends StringPrompt {
+		private final Player player;
+		private final WarpHandler wh;
+		private final String warpName;
+		private final Settings settings;
+		private final double price;
+
+		private MovePrompt(Player player, WarpHandler wh, String warpName, Settings settings, double price) {
+			this.player = player;
+			this.wh = wh;
+			this.warpName = warpName;
+			this.settings = settings;
+			this.price = price;
+		}
+		
+
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return settings.getMoveWarpConfirmMessage(warpName, price);
+		}
+
+		@Override
+		public Prompt acceptInput(ConversationContext context, String input) {
+			if (move(player, wh, warpName, settings, price)){
+				return new DonePrompt(settings.getMovedWarpMessage(warpName, price));
+			} else {
+				String msg = settings.getIssueWhileMovingWarpMessage(warpName);
+				IW.getLogger().warning(msg);
+				return new DonePrompt(msg);
+			}
+		}
+
+	}
+
+	private class DonePrompt extends MessagePrompt {
+		private final String msg;
+
+		public DonePrompt(String msg) {
+			this.msg = msg;
+		}
+
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return msg;
+		}
+
+		@Override
+		protected Prompt getNextPrompt(ConversationContext context) {
+			return Prompt.END_OF_CONVERSATION;
+		}
+		
 	}
 
 }
