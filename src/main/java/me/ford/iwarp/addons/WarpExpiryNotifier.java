@@ -8,8 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.earth2me.essentials.utils.DateUtil;
-
 import me.ford.iwarp.IWarpPlugin;
 import net.ess3.api.events.UserWarpEvent;
 
@@ -21,9 +19,6 @@ public class WarpExpiryNotifier implements IWarpAddOn, Listener {
 	public WarpExpiryNotifier(IWarpPlugin plugin) {
 		IW = plugin;
 		IW.getServer().getPluginManager().registerEvents(this, IW);
-		// DEBUG
-		IW.getLogger().info("ENABLING EXPIRY NOTIFIER");
-		// DEBUG
 	}
 
 	@Override
