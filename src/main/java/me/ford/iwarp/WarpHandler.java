@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -150,6 +152,11 @@ public class WarpHandler {
 				String coords = String.format("(%s, %3.2f, %3.2f, %3.2f)", loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
 				for (String cmd : IW.getSettings().getCommandsOnWarpExpire()) {
 					cmd = cmd.replace("{player}", playerName).replace("{name}", name).replace("{coords}", coords);
+					try {
+						IW.getServer().dispatchCommand(IW.getServer().getConsoleSender(), cmd);
+					} catch (CommandException e) {
+						IW.getLogger().log(Level.SEVERE, "Problem executing command on warp expiration.", e);
+					}
 				}
 			}
 		}
