@@ -44,6 +44,9 @@ permissions:
   iwarp.command.reload:
     description: Allow seeing reloading the plugin configs
     default: op
+  iwarp.command.changeexpiration:
+    description: Allow changing expiration of others warps
+    default: op
   iwarp.addons:
     description: Allow using the addons command
     default: op

@@ -121,6 +121,17 @@ public class WarpHandler {
 	public boolean changeOwner(String name, Player newOwner) {
 		return setWarp(name, newOwner);
 	}
+
+	public void addTimeToWarp(String name, long time) {
+		name = name.toLowerCase();
+		if (!config.contains(name)) {
+			return;
+		}
+		long cEnd = config.getLong(name);
+		long nEnd = cEnd + time;
+		config.set(name, nEnd);
+		save();
+	}
 	
 	public void addTimeToWarp(String name, int days) {
 		name = name.toLowerCase();

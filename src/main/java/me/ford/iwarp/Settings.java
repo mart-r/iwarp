@@ -215,6 +215,11 @@ public class Settings {
 		String msg = getMessage("warp-expiring", "&7The warp &7{warp}&7 will expire in &8{time}&7!");
 		return msg.replace("{warp}", name).replace("{time}", DateUtil.formatDateDiff(timeLeft));
 	}
+
+	public String getChangedExpirationMessage(String warp, String time) {
+		return getMessage("changed-warp-expire-date", "&7Changed the warp &6{warp}&7 to expire &8{time}&7 from now.")
+					.replace("{warp}", warp).replace("{time}", time);
+	}
 	
 	private String getMessage(String path, String def) {
 		return Utils.color(IW.getConfig().getString("messages." + path, def));

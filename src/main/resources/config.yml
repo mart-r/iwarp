@@ -46,3 +46,4 @@ messages:
   no-previous-locations: "&7No previous locations for warp &6{name}"
   previous-locations: "&7Previous locations for warp &6{name}&7: &8{locs}"
   warp-expiring: "&7The warp &7{warp}&7 will expire in &8{time}&7!"
+  changed-warp-expire-date: "&7Changed the warp &6{warp}&7 to expire &8{time}&7 from now."
