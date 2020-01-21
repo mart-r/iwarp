@@ -60,6 +60,10 @@ public class Settings {
 	public boolean listEssentialsWarps() {
 		return IW.getConfig().getBoolean("include-essentials-warps-in-list", false);
 	}
+
+	public List<String> getCommandsOnWarpExpire() {
+		return IW.getConfig().getStringList("commands-on-warp-expire");
+	}
 	
 	// addons
 	

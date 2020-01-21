@@ -138,11 +138,20 @@ public class WarpHandler {
 	public void deleteWarp(String name, boolean save) {
 		name = name.toLowerCase();
 		if (isWarp(name)) {
+			UUID ownerId = essHook.getOwner(name);
+			Location loc = essHook.getWarpLocation(name);
 			if (IW.getSettings().isAddOnEnabled(IWarpAddOnType.OLDWARPLOCATIONLOGGER)) {
-				Location loc = essHook.getWarpLocation(name);
 				IW.getOldLocationLogger().onWarpDeletion(name, loc);
 			}
 			essHook.deleteWarp(name);
+			OfflinePlayer player = IW.getServer().getOfflinePlayer(ownerId);
+			if (player != null && player.hasPlayedBefore()) {
+				String playerName = player.getName();
+				String coords = String.format("(%s, %3.2f, %3.2f, %3.2f)", loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
+				for (String cmd : IW.getSettings().getCommandsOnWarpExpire()) {
+					cmd = cmd.replace("{player}", playerName).replace("{name}", name).replace("{coords}", coords);
+				}
+			}
 		}
 		if (config.contains(name)) {
 			config.set(name,  null);
