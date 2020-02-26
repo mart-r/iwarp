@@ -3,7 +3,7 @@ version: ${project.version}
 author: Ford
 main: ${project.groupId}.${project.artifactId}.IWarpPlugin
 api-version: 1.13
-depends: [Essentials, Vault]
+depend: [Essentials, Vault]
 
 commands:
   iwarp:
