@@ -14,6 +14,7 @@ import org.bukkit.util.StringUtil;
 
 import me.ford.iwarp.IWarpPlugin;
 import me.ford.iwarp.commands.subcommands.AbstractSubCommand;
+import me.ford.iwarp.commands.subcommands.AdminRenameCommand;
 import me.ford.iwarp.commands.subcommands.ChangeExpirationCommand;
 import me.ford.iwarp.commands.subcommands.CreateCommand;
 import me.ford.iwarp.commands.subcommands.InfoCommand;
@@ -40,10 +41,12 @@ public class CommandIWarp implements TabExecutor {
 		subCommands.put("info", new InfoCommand(IW));
 		subCommands.put("reload", new ReloadCommand(IW));
 		subCommands.put("changeexpiration", new ChangeExpirationCommand(IW));
+		subCommands.put("arename", new AdminRenameCommand(IW));
 		subCommandNames.addAll(subCommands.keySet());
 		subCommandNames.remove("reload"); // most people can't reload
 		subCommandNames.add("help"); // I can tabcomplete, but it just returns false and displays usage
 		subCommandNames.remove("changeexpiration"); // most people can't use this
+		subCommandNames.remove("arename"); // most people can't use this
 	}
 
 	@Override

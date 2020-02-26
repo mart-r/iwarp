@@ -32,6 +32,9 @@ permissions:
   iwarp.command.rename:
     description: Allow renaming warps
     default: true
+  iwarp.command.adminrename:
+    description: Allow renaming a warp free of charge
+    default: op
   iwarp.command.transfer:
     description: Allow transferring warps
     default: true
