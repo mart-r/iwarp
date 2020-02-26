@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import me.ford.iwarp.IWarpPlugin;
@@ -41,11 +40,6 @@ public boolean onCommand(CommandSender sender, Command command, String label, St
         sender.sendMessage(usage);
         return true;
     }
-    if (!(sender instanceof Player)) { // otherwise there is no ownership
-        sender.sendMessage(IW.getSettings().getSenderMustBePlayerMessage());
-        return true;
-    }
-    Player owner = (Player) sender;
     
     String oldName = args[1].toLowerCase();
     String newName = args[2].toLowerCase();
@@ -55,14 +49,14 @@ public boolean onCommand(CommandSender sender, Command command, String label, St
     
     // handle warp existance
     if (wh.isWarp(newName)) {
-        owner.sendMessage(settings.getWarpExistsMessage(newName));
+        sender.sendMessage(settings.getWarpExistsMessage(newName));
         return true;
     }
     
     // warp name check
     try {
         Integer.parseInt(newName);
-        owner.sendMessage(settings.getNameNotIntMessage());
+        sender.sendMessage(settings.getNameNotIntMessage());
         return true;
     } catch (NumberFormatException e) {	/* continue */ }
 
@@ -70,10 +64,10 @@ public boolean onCommand(CommandSender sender, Command command, String label, St
     
     // rename
     if (wh.rename(oldName, newName)) {
-        owner.sendMessage(settings.getRenamedWarpMessage(oldName, newName, price));
+        sender.sendMessage(settings.getRenamedWarpMessage(oldName, newName, price));
     } else {
         String msg = settings.getIssueWhileRenamingWarpMessage(oldName, newName);
-        owner.sendMessage(msg);
+        sender.sendMessage(msg);
         IW.getLogger().warning(msg);
     }
     return true;
