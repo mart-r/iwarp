@@ -43,7 +43,7 @@ public class IWarpPlugin extends JavaPlugin {
 		}
 
 		if (settings.useBstats()) {
-			new Metrics(this);
+			new Metrics(this, 6773);
 		}
 		
 		// addons

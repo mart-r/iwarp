@@ -50,7 +50,7 @@
     <dependency>
   	    <groupId>org.bstats</groupId>
         <artifactId>bstats-bukkit</artifactId>
-        <version>1.5</version>
+        <version>1.7</version>
         <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -68,7 +68,6 @@
   	    </includes>
   	  </resource>
   	</resources>
-  </build>
   <plugins>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
@@ -92,4 +91,5 @@
       </executions>
     </plugin>
   </plugins>
+  </build>
 </project>
