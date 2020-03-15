@@ -7,6 +7,8 @@ check-delay-ticks: 200
 lookup-offline-players: true
 include-essentials-warps-in-list: false
 
+use-bstats: true
+
 commands-on-warp-expire: []
 
 confirm:

@@ -3,6 +3,7 @@ package me.ford.iwarp;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,6 +40,10 @@ public class IWarpPlugin extends JavaPlugin {
 			getLogger().severe("Was unable to hook into a Vault economy - aborting plugin!");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
+		}
+
+		if (settings.useBstats()) {
+			new Metrics(this);
 		}
 		
 		// addons

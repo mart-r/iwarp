@@ -64,6 +64,10 @@ public class Settings {
 	public List<String> getCommandsOnWarpExpire() {
 		return IW.getConfig().getStringList("commands-on-warp-expire");
 	}
+
+	public boolean useBstats() {
+		return IW.getConfig().getBoolean("use-bstats", true);
+	}
 	
 	// addons
 	
