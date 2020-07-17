@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import me.ford.iwarp.IWarpPlugin;
 import me.ford.iwarp.Settings;
 import me.ford.iwarp.WarpHandler;
+import me.ford.iwarp.addons.WarpLimiter;
 
 public class CreateCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp create <warpname> <days>";
@@ -66,6 +67,14 @@ public class CreateCommand extends AbstractSubCommand {
 		// helpers
 		final WarpHandler wh = IW.getWarpHandler();
 		final Settings settings = IW.getSettings();
+		final WarpLimiter limiter = IW.getWarpLimiter();
+
+		// handle limits
+		int cur, max;
+		if (limiter != null && (max = limiter.getAllowedWarps(player)) <= (cur = wh.getWarpsOf(player).size())) {
+			player.sendMessage(settings.getTooManyWarpsMessage(cur, max));
+			return true;
+		}
 
 		// handle warp existance
 		if (wh.warpExists(warpName)) {

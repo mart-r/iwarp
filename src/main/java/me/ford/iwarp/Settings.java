@@ -77,6 +77,8 @@ public class Settings {
 			return IW.getConfig().getBoolean("addons.save-expired-warp-locations", false);
 		case WARPEXPIRYNOTIFIER:
 			return IW.getConfig().getBoolean("addons.warp-expiry-notifier.enabled", false);
+		case WARPLIMITER:
+		    return IW.getConfig().getBoolean("addons.warp-limiter.enabled", false);
 		default:
 			return false;	
 		}
@@ -91,6 +93,11 @@ public class Settings {
 	}
 	
 	// messages
+
+	public String getTooManyWarpsMessage(int cur, int max) {
+		String msg = getMessage("have-max-warps", "&7You have &6{cur}&7 out of &8{max}&7 allowed warps");
+		return msg.replace("{cur}", String.valueOf(cur)).replace("{max}", String.valueOf(max));
+	}
 	
 	public String getWarpExistsMessage(String warpName) {
 		String msg = getMessage("warp-already-exists", "&cWarp already exists: &6{name}");

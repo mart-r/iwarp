@@ -21,6 +21,12 @@ addons:
     enabled: true
     only-owner: false
     days-for-notification: 1
+  warp-limiter:
+    enabled: false
+    limits:      # iwarp.limits.default -> default number of warps
+      default: 1 # iwarp.limits.vip -> VIP number of warps
+      VIP: 3     # iwarp.limits.override -> no limit
+
     
 messages:
   warp-already-exists: "&cWarp already exists: &6{name}"
@@ -49,3 +55,4 @@ messages:
   previous-locations: "&7Previous locations for warp &6{name}&7: &8{locs}"
   warp-expiring: "&7The warp &7{warp}&7 will expire in &8{time}&7!"
   changed-warp-expire-date: "&7Changed the warp &6{warp}&7 to expire &8{time}&7 from now."
+  have-max-warps: "&7You have &6{cur}&7 out of &8{max}&7 allowed warps"

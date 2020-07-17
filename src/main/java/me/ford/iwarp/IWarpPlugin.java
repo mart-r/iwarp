@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.ford.iwarp.addons.IWarpAddOnType;
 import me.ford.iwarp.addons.OldWarpLocationLogger;
 import me.ford.iwarp.addons.WarpExpiryNotifier;
+import me.ford.iwarp.addons.WarpLimiter;
 import me.ford.iwarp.addons.IWarpAddOn;
 import me.ford.iwarp.commands.CommandIWarp;
 import me.ford.iwarp.commands.CommandIWarpAddOns;
@@ -53,6 +54,9 @@ public class IWarpPlugin extends JavaPlugin {
 		if (settings.isAddOnEnabled(IWarpAddOnType.WARPEXPIRYNOTIFIER)) {
 			addOns.put(IWarpAddOnType.WARPEXPIRYNOTIFIER, new WarpExpiryNotifier(this));
 		}
+		if (settings.isAddOnEnabled(IWarpAddOnType.WARPLIMITER)) {
+			addOns.put(IWarpAddOnType.WARPLIMITER, new WarpLimiter(this));
+		}
 		
 		// commands
 		getCommand("iwarp").setExecutor(new CommandIWarp(this));
@@ -73,7 +77,11 @@ public class IWarpPlugin extends JavaPlugin {
     
     public void reload() {
     	reloadConfig();
-    	warpHandler.reload();
+		warpHandler.reload();
+		WarpLimiter limiter = getWarpLimiter();
+		if (limiter != null) {
+			limiter.reload();
+		}
     }
 	
 	public Settings getSettings() {
@@ -94,6 +102,10 @@ public class IWarpPlugin extends JavaPlugin {
 	
 	public OldWarpLocationLogger getOldLocationLogger() {
 		return (OldWarpLocationLogger) getAddOn(IWarpAddOnType.OLDWARPLOCATIONLOGGER);
+	}
+
+	public WarpLimiter getWarpLimiter() {
+		return (WarpLimiter) getAddOn(IWarpAddOnType.WARPLIMITER);
 	}
 
 }

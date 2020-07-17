@@ -53,3 +53,9 @@ permissions:
   iwarp.addons:
     description: Allow using the addons command
     default: op
+  iwarp.limits.default:
+    description: Allow the default number of warps for this player (if addon enabled)
+    default: true
+  iwarp.limits.override:
+    description: Allow any number of warps for this player (if addon enabled)
+    default: op
