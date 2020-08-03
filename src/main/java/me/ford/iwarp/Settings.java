@@ -29,6 +29,10 @@ public class Settings {
 		return IW.getConfig().getBoolean("confirm.move", false);
 	}
 
+	public boolean getConfirmRenew() {
+		return IW.getConfig().getBoolean("confirm.renew", false);
+	}
+
 	public double getCreateCost() {
 		return IW.getConfig().getDouble("createcost", 0);
 	}
@@ -153,6 +157,11 @@ public class Settings {
 	public String getMoveWarpConfirmMessage(String warpName, double price) {
 		String msg = getMessage("confirm-move", "&7Type 'confirm' to confirm the new location for warp &6{name}&7. The cost is &8{amount}&7.");
 		return msg.replace("{name}", warpName).replace("{amount}", Utils.doubleFormat(price));
+	}
+
+	public String getRenewWarpConfirmMessage(String warpName, int days, double price) {
+		String msg = getMessage("confirm-renew", "&7Type 'confirm' to confirm the renewal for warp &6{name}&7 for &8{days}&7 days. The cost is &8{amount}&7.");
+		return msg.replace("{name}", warpName).replace("{days}", String.valueOf(days)).replace("{amount}", Utils.doubleFormat(price));
 	}
 	
 	public String getIssueWhileMovingWarpMessage(String warpName) {

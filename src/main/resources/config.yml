@@ -14,6 +14,7 @@ commands-on-warp-expire: []
 confirm:
   create: false
   move: false
+  renew: false
 
 addons:
   save-expired-warp-locations: false
@@ -50,6 +51,7 @@ messages:
   warp-info: "&7The warp &6{name}&7 is owned by &8{player}&7 and will expire in &6{time}"
   confirm-create: "&7Type 'confirm' to confirm the location for warp &7{name}&7. The cost is &8{amount}&7."
   confirm-move: "&7Type 'confirm' to confirm the new location for warp &6{name}&7. The cost is &8{amount}&7."
+  confirm-renew: "&7Type 'confirm' to confirm the renewal for warp &6{name}&7 for &8{days}&7 days. The cost is &8{amount}&7."
   reloaded: "&cSuccessfully loaded config and iwarps!"
   no-previous-locations: "&7No previous locations for warp &6{name}"
   previous-locations: "&7Previous locations for warp &6{name}&7: &8{locs}"
