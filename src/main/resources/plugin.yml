@@ -8,7 +8,7 @@ depend: [Essentials, Vault]
 commands:
   iwarp:
     description: The iwarp command
-    usage: "/<command> create <warpname> <days>\n/<command> renew <warpname> <days>\n/<command> move <warpname>\n/<command> rename <oldname> <newname>\n/<command> transfer <warpname> <newowner>\n/<command> list <playername>\n/<command> info <warpname\n/<command> help"
+    usage: "/<command> create <warpname> <days>\n/<command> renew <warpname> <days>\n/<command> move <warpname>\n/<command> rename <oldname> <newname>\n/<command> transfer <warpname> <newowner>\n/<command> list <playername>\n/<command> info <warpname>\n/<command> help"
     permission: iwarp.command
   iwarpaddons:
     description: Addon commands
