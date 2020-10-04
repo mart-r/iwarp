@@ -51,6 +51,10 @@ public class CreateCommand extends AbstractSubCommand {
 		final Player player = (Player) sender;
 
 		final String warpName = args[1];
+		if (warpName.contains(".")) {
+			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
+			return true;
+		}
 
 		final int days; // parse number of days
 		try {

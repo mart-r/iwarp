@@ -111,6 +111,11 @@ public class Settings {
 	public String getSenderMustBePlayerMessage() {
 		return getMessage("sender-must-be-player", "&cSender must be a player!");
 	}
+
+	public String getNameContainsPeriodMessage(String name) {
+		return getMessage("name-cannot-have-period",
+				"%cThe name of the warp %6{name}&c cointains a period (&7.&c) which is not allowed");
+	}
 	
 	public String getNotEnoughMoneyMessage(double price) {
 		String msg = getMessage("not-enough-money", "&cYou do not have enough money: &4{amount}");
