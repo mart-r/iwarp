@@ -114,7 +114,7 @@ public class Settings {
 
 	public String getNameContainsPeriodMessage(String name) {
 		return getMessage("name-cannot-have-period",
-				"&cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed");
+				"&cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed").replace("{name}", name);
 	}
 	
 	public String getNotEnoughMoneyMessage(double price) {
