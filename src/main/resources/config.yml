@@ -37,7 +37,7 @@ messages:
   not-your-warp: "&cThis warp does not belong to you: &7{name}"
   renewed-warp: "&7You've successfully renewed the warp &6{name}&7 for another &8{days}&7 days for $&8{amount}&7 (&6{total}&7 days left in total)"
   name-not-int: "&cWarp names cannot be integers!"
-  name-cannot-have-period: "%cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed"
+  name-cannot-have-period: "&cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed"
   issue-while-creating-warp: "&cThere was an unexpected issue while creating warp: &4{name}"
   inssufficient-permissions: "&cYou do not have permission to use this command!"
   moved-warp: "&7You've successfully moved the warp &6{name}&7 to your current location for &8{amount}"
