@@ -61,7 +61,7 @@ public class RenameCommand extends AbstractSubCommand {
 		}
 		
 		// handle warp existance
-		if (wh.isWarp(newName)) {
+		if (wh.warpExists(newName)) {
 			owner.sendMessage(settings.getWarpExistsMessage(newName));
 			return true;
 		}
