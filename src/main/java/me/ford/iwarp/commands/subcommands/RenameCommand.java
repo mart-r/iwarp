@@ -14,9 +14,11 @@ import me.ford.iwarp.WarpHandler;
 
 public class RenameCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp rename <oldname> <newname>";
+    private static final String NAME = "rename";
+    private static final String PERMISSION = "iwarp.command.rename";
 	
 	public RenameCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp rename <oldname> <newname> - Rename a warp
 //	If the player owns the warp, a warp with <newname> does not already exist, and the player has renamecost money, then the warp will be renamed to <newname> and renamecost will be removed from their balance.

@@ -28,16 +28,20 @@ public class CommandIWarp implements TabExecutor {
 
 	public CommandIWarp(IWarpPlugin plugin) {
 		IW = plugin;
-		subCommands.put("create", new CreateCommand(IW));
-		subCommands.put("renew", new RenewCommand(IW));
-		subCommands.put("move", new MoveCommand(IW));
-		subCommands.put("rename", new RenameCommand(IW));
-		subCommands.put("transfer", new TransferCommand(IW));
-		subCommands.put("list", new ListCommand(IW));
-		subCommands.put("info", new InfoCommand(IW));
-		subCommands.put("reload", new ReloadCommand(IW));
-		subCommands.put("changeexpiration", new ChangeExpirationCommand(IW));
-		subCommands.put("arename", new AdminRenameCommand(IW));
+		registerCommand(new CreateCommand(IW));
+		registerCommand(new RenewCommand(IW));
+		registerCommand(new MoveCommand(IW));
+		registerCommand(new RenameCommand(IW));
+		registerCommand(new TransferCommand(IW));
+		registerCommand(new ListCommand(IW));
+		registerCommand(new InfoCommand(IW));
+		registerCommand(new ReloadCommand(IW));
+		registerCommand(new ChangeExpirationCommand(IW));
+		registerCommand(new AdminRenameCommand(IW));
+	}
+
+	private void registerCommand(AbstractSubCommand cmd) {
+		subCommands.put(cmd.getName(), cmd);
 	}
 
 	@Override
@@ -47,35 +51,10 @@ public class CommandIWarp implements TabExecutor {
 				return new ArrayList<>();
 			case 1:
 				ArrayList<String> list = new ArrayList<>();
-				if (sender.hasPermission("iwarp.command.create")) {
-					list.add("create");
-				}
-				if (sender.hasPermission("iwarp.command.renew")) {
-					list.add("renew");
-				}
-				if (sender.hasPermission("iwarp.command.move")) {
-					list.add("move");
-				}
-				if (sender.hasPermission("iwarp.command.rename")) {
-					list.add("rename");
-				}
-				if (sender.hasPermission("iwarp.command.transfer")) {
-					list.add("transfer");
-				}
-				if (sender.hasPermission("iwarp.command.list")) {
-					list.add("list");
-				}
-				if (sender.hasPermission("iwarp.command.info")) {
-					list.add("info");
-				}
-				if (sender.hasPermission("iwarp.command")) {
-					list.add("help");
-				}
-				if (sender.hasPermission("iwarp.command.changeexpiration")) {
-					list.add("changeexpiration");
-				}
-				if (sender.hasPermission("iwarp.command.adminrename")) {
-					list.add("arename");
+				for (AbstractSubCommand cmd : subCommands.values()) {
+					if (cmd.hasPermission(sender)) {
+						list.add(cmd.getName());
+					}
 				}
 				return list;
 			default:

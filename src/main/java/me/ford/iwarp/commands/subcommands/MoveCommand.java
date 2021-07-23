@@ -19,9 +19,11 @@ import me.ford.iwarp.WarpHandler;
 
 public class MoveCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp move <warpname>";
+    private static final String NAME = "move";
+    private static final String PERMISSION = "iwarp.command.move";
 	
 	public MoveCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp move <warpname> - Move a warp to your current location
 //	If the player has the permission iwarp.use, the player owns the warp, and the player has movecost money, then the warp will be moved to the current location of the player and movecost will be removed from their balance.

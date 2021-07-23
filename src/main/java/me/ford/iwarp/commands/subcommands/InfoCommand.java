@@ -12,9 +12,11 @@ import me.ford.iwarp.IWarpPlugin;
 
 public class InfoCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp info <warpname>";
+    private static final String NAME = "info";
+    private static final String PERMISSION = "iwarp.command.info";
 	
 	public InfoCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp info <warpname> - Show information about a warp
 //	Shows who owns a warp and when it will expire.

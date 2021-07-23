@@ -10,9 +10,11 @@ import org.bukkit.entity.Player;
 import me.ford.iwarp.IWarpPlugin;
 
 public class ListCommand extends AbstractSubCommand {
+    private static final String NAME = "list";
+    private static final String PERMISSION = "iwarp.command.list";
 	
 	public ListCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp list <playername> - List all warps owned by a player
 //

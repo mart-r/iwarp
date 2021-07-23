@@ -19,9 +19,11 @@ import me.ford.iwarp.addons.WarpLimiter;
 
 public class CreateCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp create <warpname> <days>";
+    private static final String NAME = "create";
+    private static final String PERMISSION = "iwarp.command.create";
 
 	public CreateCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 
 	// /iwarp create <warpname> <days> - Create a warp

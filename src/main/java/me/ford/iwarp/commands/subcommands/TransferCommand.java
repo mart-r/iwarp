@@ -14,9 +14,11 @@ import me.ford.iwarp.WarpHandler;
 
 public class TransferCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp transfer <warpname> <newowner>";
+    private static final String NAME = "transfer";
+    private static final String PERMISSION = "iwarp.command.transfer";
 	
 	public TransferCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp transfer <warpname> <newowner> - Transfer ownership of a warp
 //	If the player owns the warp and the player has transfercost money, the warp will be transferred to the new owner. Then, transfercost will be removed from their balance.

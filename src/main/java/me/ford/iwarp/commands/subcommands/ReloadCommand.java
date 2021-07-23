@@ -9,9 +9,11 @@ import org.bukkit.command.CommandSender;
 import me.ford.iwarp.IWarpPlugin;
 
 public class ReloadCommand extends AbstractSubCommand {
+    private static final String NAME = "reload";
+    private static final String PERMISSION = "iwarp.command.reload";
 
 	public ReloadCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 
 	@Override

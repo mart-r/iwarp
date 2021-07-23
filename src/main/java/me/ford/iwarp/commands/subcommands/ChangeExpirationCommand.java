@@ -19,9 +19,11 @@ import me.ford.iwarp.WarpHandler;
  */
 public class ChangeExpirationCommand extends AbstractSubCommand {
     private final String usage = "/iwarp changeexpiration <warpname> <time>";
+    private static final String NAME = "changeexpiration";
+    private static final String PERMISSION = "iwarp.command.changeexpiration";
 
     public ChangeExpirationCommand(IWarpPlugin plugin) {
-        super(plugin);
+        super(plugin, NAME, PERMISSION);
     }
 
     @Override

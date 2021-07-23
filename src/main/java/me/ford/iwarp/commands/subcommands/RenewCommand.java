@@ -19,9 +19,11 @@ import me.ford.iwarp.WarpHandler;
 
 public class RenewCommand extends AbstractSubCommand {
 	private final String usage = "/iwarp renew <warpname> <days>";
+    private static final String NAME = "renew";
+    private static final String PERMISSION = "iwarp.command.renew";
 	
 	public RenewCommand(IWarpPlugin plugin) {
-		super(plugin);
+        super(plugin, NAME, PERMISSION);
 	}
 //	/iwarp renew <warpname> <days> - Renew a warp
 //	If the user has <days>*renewcost money, add <days> days to the warp’s expiration and take renewcost*days amount of money from the user. This command can be used by people who do not own that warp.
