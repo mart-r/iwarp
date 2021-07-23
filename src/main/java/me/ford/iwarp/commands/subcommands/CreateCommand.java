@@ -40,10 +40,29 @@ public class CreateCommand extends AbstractSubCommand {
 			sender.sendMessage(IW.getSettings().getInsufficientPermissionsMessage());
 			return true;
 		}
-		if (args.length < 3) {
+		if (args.length == 1) {
 			sender.sendMessage(usage);
 			return true;
 		}
+
+		// Calculate number of days. If no value, assume 1 day.
+		final int days;
+		if (args.length == 2) {
+			days = 1;
+		} else {
+			try {
+				days = Integer.parseInt(args[2]);
+			} catch (NumberFormatException e) {
+				sender.sendMessage(usage);
+				return true;
+			}
+
+			if (days < 1) {
+				sender.sendMessage(usage);
+				return true;
+			}
+		}
+
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(IW.getSettings().getSenderMustBePlayerMessage());
 			return true;
@@ -53,18 +72,6 @@ public class CreateCommand extends AbstractSubCommand {
 		final String warpName = args[1];
 		if (warpName.contains(".")) {
 			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
-			return true;
-		}
-
-		final int days; // parse number of days
-		try {
-			days = Integer.parseInt(args[2]);
-		} catch (NumberFormatException e) {
-			sender.sendMessage(usage);
-			return true;
-		}
-		if (days < 1) {
-			sender.sendMessage(usage);
 			return true;
 		}
 
