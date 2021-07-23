@@ -8,6 +8,7 @@ import java.util.Map;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.util.StringUtil;
 
 import me.ford.iwarp.IWarpPlugin;
 import me.ford.iwarp.commands.subcommands.AbstractSubCommand;
@@ -56,7 +57,7 @@ public class CommandIWarp implements TabExecutor {
 						list.add(cmd.getName());
 					}
 				}
-				return list;
+				return StringUtil.copyPartialMatches(args[0], list, new ArrayList<>());
 			default:
 				AbstractSubCommand sbc = subCommands.get(args[0].toLowerCase());
 				if (sbc == null) {
