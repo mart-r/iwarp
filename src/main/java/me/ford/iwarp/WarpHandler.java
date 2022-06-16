@@ -119,7 +119,7 @@ public class WarpHandler {
 	}
 	
 	public boolean changeOwner(String name, Player newOwner) {
-		return setWarp(name, newOwner);
+		return essHook.setWarpOwner(name, newOwner);
 	}
 
 	public void addTimeToWarp(String name, long time) {
