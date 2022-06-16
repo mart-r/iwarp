@@ -106,6 +106,10 @@ public class EssentialsHook {
 		}
 	}
 	
+	public boolean setWarpOwner(String name, Player owner) {
+		return createWarp(name, owner.getUniqueId(), findWarp(name));
+	}
+	
 	public Collection<String> getAllWarps() {
 		return ess.getWarps().getList();
 	}
