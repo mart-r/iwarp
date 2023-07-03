@@ -77,6 +77,11 @@ public class CreateCommand extends AbstractSubCommand {
 			return true;
 		}
 
+		if (!warpName.matches(IW.getSettings().getWarpNameFormat())) {
+			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
+			return true;
+		}
+
 		// helpers
 		final WarpHandler wh = IW.getWarpHandler();
 		final Settings settings = IW.getSettings();

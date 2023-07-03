@@ -10,7 +10,7 @@ include-essentials-warps-in-list: false
 use-bstats: true
 
 commands-on-warp-expire: []
-
+warp-name-format: "^.{1,15}$"
 confirm:
   create: false
   move: false

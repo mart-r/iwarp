@@ -44,7 +44,7 @@ public class Settings {
 	public double getMoveCost() {
 		return IW.getConfig().getDouble("movecost", 0);
 	}
-	
+
 	public double getRenameCost() {
 		return IW.getConfig().getDouble("renamecost", 0);
 	}
@@ -71,6 +71,10 @@ public class Settings {
 
 	public boolean useBstats() {
 		return IW.getConfig().getBoolean("use-bstats", true);
+	}
+
+	public String getWarpNameFormat() {
+		return IW.getConfig().getString("warp-name-format", "^.{1,15}$");
 	}
 	
 	// addons
