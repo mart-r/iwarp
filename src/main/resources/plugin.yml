@@ -1,6 +1,6 @@
 name: ${project.name}
 version: ${project.version}
-author: Ford DrBot
+author: Ford
 main: ${project.groupId}.${project.artifactId}.IWarpPlugin
 api-version: 1.13
 depend: [Essentials, Vault]
