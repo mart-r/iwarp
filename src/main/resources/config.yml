@@ -11,6 +11,12 @@ use-bstats: true
 
 commands-on-warp-expire: []
 
+# this specifies a regular expression (regex) for what's allowed in a warp name
+# you can read about regex, e.g in: https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
+# chatgpt is also pretty good at coming up with regex if you already have a basic understanding.
+# If you do not know what you're doing, it's probably best to leave this value alone.
+warp-name-format: "^.{1,15}$"
+
 confirm:
   create: false
   move: false
@@ -37,7 +43,8 @@ messages:
   not-your-warp: "&cThis warp does not belong to you: &7{name}"
   renewed-warp: "&7You've successfully renewed the warp &6{name}&7 for another &8{days}&7 days for $&8{amount}&7 (&6{total}&7 days left in total)"
   name-not-int: "&cWarp names cannot be integers!"
-  name-cannot-have-period: "&cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed"
+  name-cannot-have-period: "&cThe name of the warp &6{name}&c contains a period (&7.&c) which is not allowed"
+  name-doesnt-match-pattern: "&cThe name of the warp &6{name}&c is forbidden. If this keeps happening, seek assistance from an admin."
   issue-while-creating-warp: "&cThere was an unexpected issue while creating warp: &4{name}"
   inssufficient-permissions: "&cYou do not have permission to use this command!"
   moved-warp: "&7You've successfully moved the warp &6{name}&7 to your current location for &8{amount}"

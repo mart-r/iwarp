@@ -2,7 +2,9 @@ package me.ford.iwarp.commands.subcommands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.ConversationContext;
@@ -75,6 +77,15 @@ public class CreateCommand extends AbstractSubCommand {
 		if (warpName.contains(".")) {
 			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
 			return true;
+		}
+
+		try {
+			if (!warpName.matches(IW.getSettings().getWarpNameFormat())) {
+				sender.sendMessage(IW.getSettings().getNameDoesntMatchPatternMessage(warpName));
+				return true;
+			}
+		} catch (PatternSyntaxException exception) {
+			Bukkit.getLogger().warning("You have an error in the warp-name-format configuration setting. Until this error is fixed, iwarp will allow any warp name. You can reset it to \"^.{1,15}$\".");
 		}
 
 		// helpers
