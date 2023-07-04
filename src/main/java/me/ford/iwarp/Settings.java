@@ -120,6 +120,11 @@ public class Settings {
 		return getMessage("name-cannot-have-period",
 				"&cThe name of the warp &6{name}&c cointains a period (&7.&c) which is not allowed").replace("{name}", name);
 	}
+
+	public String getNameDoesntMatchPatternMessage(String name) {
+		return getMessage("name-doesnt-match-pattern",
+				"&cThe name of the warp &6{name}&c is forbidden. If this keeps happening, seek assistance from an admin.").replace("{name}", name);
+	}
 	
 	public String getNotEnoughMoneyMessage(double price) {
 		String msg = getMessage("not-enough-money", "&cYou do not have enough money: &4{amount}");
