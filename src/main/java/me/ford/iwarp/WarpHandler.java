@@ -7,11 +7,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandException;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -213,6 +216,38 @@ public class WarpHandler {
 	public OfflinePlayer getOwner(String name) { // I'm allowing owners not managed through this plugin
 		UUID owner = essHook.getOwner(name);
 		return IW.getServer().getOfflinePlayer(owner);
+	}
+
+	public boolean isProhibitedName(CommandSender sender, String warpName) {
+		if (warpName.contains(".")) {
+			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
+			return true;
+		}
+
+		try {
+			if (!warpName.matches(IW.getSettings().getWarpNameFormat())) {
+				sender.sendMessage(IW.getSettings().getNameDoesntMatchPatternMessage(warpName));
+				return true;
+			}
+		} catch (PatternSyntaxException exception) {
+			Bukkit.getLogger().warning("You have an error in the warp-name-format configuration setting. Until this error is fixed, iwarp will allow any warp name. You can reset it to \"^.{1,15}$\".");
+		}
+
+		// handle warp existance
+		if (warpExists(warpName)) {
+			sender.sendMessage(IW.getSettings().getWarpExistsMessage(warpName));
+			return true;
+		}
+
+		// integer name check
+		try {
+			Integer.parseInt(warpName);
+			sender.sendMessage(IW.getSettings().getNameNotIntMessage());
+			return true;
+		} catch (NumberFormatException e) {
+			/* continue */ }
+
+		return false;
 	}
 
 }
