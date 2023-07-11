@@ -74,10 +74,8 @@ public class CreateCommand extends AbstractSubCommand {
 		final Player player = (Player) sender;
 
 		final String warpName = args[1];
-		if (warpName.contains(".")) {
-			sender.sendMessage(IW.getSettings().getNameContainsPeriodMessage(warpName));
-			return true;
-		}
+		final WarpHandler wh = IW.getWarpHandler();
+		if (wh.isProhibitedName(sender, warpName)) return true;
 
 		try {
 			if (!warpName.matches(IW.getSettings().getWarpNameFormat())) {
@@ -89,7 +87,6 @@ public class CreateCommand extends AbstractSubCommand {
 		}
 
 		// helpers
-		final WarpHandler wh = IW.getWarpHandler();
 		final Settings settings = IW.getSettings();
 		final WarpLimiter limiter = IW.getWarpLimiter();
 
@@ -99,20 +96,6 @@ public class CreateCommand extends AbstractSubCommand {
 			player.sendMessage(settings.getTooManyWarpsMessage(cur, max));
 			return true;
 		}
-
-		// handle warp existance
-		if (wh.warpExists(warpName)) {
-			sender.sendMessage(settings.getWarpExistsMessage(warpName));
-			return true;
-		}
-
-		// warp name check
-		try {
-			Integer.parseInt(warpName);
-			player.sendMessage(settings.getNameNotIntMessage());
-			return true;
-		} catch (NumberFormatException e) {
-			/* continue */ }
 
 		// handle price
 		final double price = settings.getCreateCost() + settings.getRenewCost() * days;

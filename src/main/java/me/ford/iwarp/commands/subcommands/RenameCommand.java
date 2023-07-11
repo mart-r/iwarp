@@ -61,19 +61,8 @@ public class RenameCommand extends AbstractSubCommand {
 			owner.sendMessage(settings.getNotYourWarpMessage(oldName));
 			return true;
 		}
-		
-		// handle warp existance
-		if (wh.warpExists(newName)) {
-			owner.sendMessage(settings.getWarpExistsMessage(newName));
-			return true;
-		}
-		
-		// warp name check
-		try {
-			Integer.parseInt(newName);
-			owner.sendMessage(settings.getNameNotIntMessage());
-			return true;
-		} catch (NumberFormatException e) {	/* continue */ }
+
+		if (wh.isProhibitedName(sender, newName)) return true;
 		
 		// check money
 		double price = settings.getRenameCost();

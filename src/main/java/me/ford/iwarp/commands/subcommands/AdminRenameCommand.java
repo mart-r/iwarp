@@ -52,19 +52,7 @@ public class AdminRenameCommand extends AbstractSubCommand {
         WarpHandler wh = IW.getWarpHandler();
         Settings settings = IW.getSettings();
 
-        // handle warp existance
-        if (wh.isWarp(newName)) {
-            sender.sendMessage(settings.getWarpExistsMessage(newName));
-            return true;
-        }
-
-        // warp name check
-        try {
-            Integer.parseInt(newName);
-            sender.sendMessage(settings.getNameNotIntMessage());
-            return true;
-        } catch (NumberFormatException e) {
-            /* continue */ }
+        if (wh.isProhibitedName(sender, newName)) return true;
 
         double price = 0D;
 
