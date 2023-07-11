@@ -230,7 +230,9 @@ public class WarpHandler {
 				return true;
 			}
 		} catch (PatternSyntaxException exception) {
-			Bukkit.getLogger().warning("You have an error in the warp-name-format configuration setting. Until this error is fixed, iwarp will allow any warp name. You can reset it to \"^.{1,15}$\".");
+			Bukkit.getLogger().warning("You have an error in the warp-name-format configuration setting. Until this error is fixed, iwarp will deny every warp name. You can reset it to \"^.{1,15}$\".");
+			sender.sendMessage(IW.getSettings().getNameDoesntMatchPatternMessage(warpName));
+			return true;
 		}
 
 		// handle warp existance
