@@ -135,6 +135,10 @@ public class Settings {
 		String msg = getMessage("created-warp", "&7You've successfully created the warp &6{name}&7 for &8{days}&7 days for &6{amount}&7.");
 		return msg.replace("{name}", warpName).replace("{days}", String.valueOf(days)).replace("{amount}", Utils.doubleFormat(price));
 	}
+
+	public String getCanceledCreatingWarpMessage() {
+		return getMessage("canceled-creating-warp", "&cWarp creation cancelled.");
+	}
 	
 	public String getCreateWarpConfirmMessage(String name, double price) {
 		String msg = getMessage("confirm-create", "&7Type 'confirm' to confirm the location for warp &7{name}&7. The cost is &8{amount}&7.").replace("{name}", name);

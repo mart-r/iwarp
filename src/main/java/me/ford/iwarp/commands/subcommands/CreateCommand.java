@@ -154,7 +154,9 @@ public class CreateCommand extends AbstractSubCommand {
 
 		@Override
 		public Prompt acceptInput(ConversationContext context, String input) {
-			if ("confirm".equalsIgnoreCase(input) && create(player, wh, warpName, settings, days, price)) {
+			if (!"confirm".equalsIgnoreCase(input)) {
+				return new DonePrompt(settings.getCanceledCreatingWarpMessage());
+			} else if (create(player, wh, warpName, settings, days, price)) {
 				return new DonePrompt(settings.getCreatedWarpMessage(warpName, days, price));
 			} else {
 				String msg = settings.getIssueWhileCreatingWarpMessage(warpName);
